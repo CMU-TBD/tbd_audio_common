@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import rospy
-from arml_audio_common.sound_maker import SoundMaker
+from tbd_audio_common.sound_maker import SoundMaker
 
 
 if __name__ == "__main__":

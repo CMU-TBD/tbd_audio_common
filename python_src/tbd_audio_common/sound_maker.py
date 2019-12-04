@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 
 import rospy
 import alloy.ros
@@ -6,7 +6,7 @@ import os
 import wave
 import actionlib
 
-from arml_ros_msgs.msg import (
+from tbd_ros_msgs.msg import (
     playAudioAction,
     playAudioGoal
 )
@@ -14,11 +14,11 @@ from arml_ros_msgs.msg import (
 class SoundMaker():
 
     def __init__(self):
-        self._arml_audio_client = actionlib.SimpleActionClient("playAudio", playAudioAction)
-        self._arml_imported_playAudioGoal = playAudioGoal
-        self._arml_audio_client.wait_for_server()
+        self._tbd_audio_client = actionlib.SimpleActionClient("playAudio", playAudioAction)
+        self._tbd_imported_playAudioGoal = playAudioGoal
+        self._tbd_audio_client.wait_for_server()
 
-        self._res_dir = alloy.ros.get_res_path('arml_audio_common')
+        self._res_dir = alloy.ros.get_res_path('tbd_audio_common')
 
     def play_beep(self, block=True):
 
@@ -32,9 +32,9 @@ class SoundMaker():
         goal.size = num_of_frames
         #send to the goal server
         if block:
-            self._arml_audio_client.send_goal_and_wait(goal)
+            self._tbd_audio_client.send_goal_and_wait(goal)
         else:
-            self._arml_audio_client.send_goal(goal)
+            self._tbd_audio_client.send_goal(goal)
     
     def wait(self, duration=None):
         """
@@ -46,8 +46,8 @@ class SoundMaker():
             Ros's implementation of Duration
 
         """
-        if self._arml_audio_client.gh:
+        if self._tbd_audio_client.gh:
             if duration is not None:
-                result = self._arml_audio_client.wait_for_result(duration)
+                result = self._tbd_audio_client.wait_for_result(duration)
             else:
-                result = self._arml_audio_client.wait_for_result()
+                result = self._tbd_audio_client.wait_for_result()

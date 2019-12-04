@@ -10,10 +10,10 @@ C++ self made audio client for maximum control
 #include <ros/console.h>
 
 //stuff for action lib
-#include <arml_ros_msgs/playAudioAction.h>
+#include <tbd_ros_msgs/playAudioAction.h>
 #include <actionlib/server/simple_action_server.h>
 
-typedef actionlib::SimpleActionServer<arml_ros_msgs::playAudioAction> ActionServer;
+typedef actionlib::SimpleActionServer<tbd_ros_msgs::playAudioAction> ActionServer;
 
 bool breakFlag = false;
 snd_pcm_t *playback_handle;
@@ -214,7 +214,7 @@ void callback(ActionServer *as)
 
 //std::thread soundThread;
 
-void playSound(const arml_ros_msgs::playAudioGoalConstPtr &goal, ActionServer *as)
+void playSound(const tbd_ros_msgs::playAudioGoalConstPtr &goal, ActionServer *as)
 {
 
     //make sure the previous instance of the soundThread is done
@@ -228,7 +228,7 @@ void playSound(const arml_ros_msgs::playAudioGoalConstPtr &goal, ActionServer *a
     unsigned int sampleRate = (unsigned int)goal->rate;
     if (_playSound(data, size, sampleRate, as))
     {
-        arml_ros_msgs::playAudioResult callResult;
+        tbd_ros_msgs::playAudioResult callResult;
         callResult.complete = true;
         //set the method as success and pass in the result object
         as->setSucceeded(callResult);
